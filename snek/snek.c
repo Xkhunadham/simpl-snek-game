@@ -11,7 +11,7 @@ COORD c = {0, 0};
 const int higt = 11;
 const int wid = 31;
 
-void printftile(const char* tile, int x, int y){
+void printftile(const char*tile, int x, int y){
 	c.X = x; c.Y = y;
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
 	printf(tile);
@@ -52,17 +52,6 @@ int arrinarray(int ine[], int arr[][2]){
     return 0;
 }
 
-int sdir = 0;
-
-int hx = 16;
-int hy = 6;
-
-int sgmnts[341][2] = {{13, 6}, {14, 6}, {15, 6}};
-
-int howlong = 3;
-
-int appl[] = {20, 6};
-
 /*
 
 sdir
@@ -77,10 +66,22 @@ sdir
 
 */
 
-int main(){
+int run(){
 	
-	system("taskkill /f /im cmd.exe");
 	
+	int sdir = 0;
+
+	int hx = 16;
+	int hy = 6;
+
+	int sgmnts[341][2] = {{13, 6}, {14, 6}};
+
+	int howlong = 2;
+
+	int appl[] = {20, 6};
+
+	int longlen = sizeof(sgmnts) / sizeof(*sgmnts);
+
 	srand(time(NULL));
 	
 	while(1){
@@ -88,6 +89,10 @@ int main(){
 		printf("\033[0;33m");
 		
 		init();
+		
+		if((howlong - 1) >= longlen){
+			return 0;
+		}
 		
 		if(GetAsyncKeyState(VK_UP)){
 			if(sdir != -1){
@@ -112,11 +117,8 @@ int main(){
 		
 		int phpos[] = {hx, hy};
 		
-		int longlen = sizeof(sgmnts) / sizeof(*sgmnts);
-		
 		if(((hx > (wid - 1)) || (hx < 0)) || ((hy > (higt - 1)) || (hy < 0))){
-			system("start rs.cmd");
-			exit(0);
+			return 2;
 		}
 		
 		if(arraycp(appl, phpos, 2)){
@@ -136,8 +138,7 @@ int main(){
 		
 		for(int i = 0; i < howlong; i++){
 			if(arraycp(phpos, sgmnts[i], 2)){
-				system("start rs.cmd");
-				exit(0);
+				return 2;
 			}
 		}
 		
@@ -184,4 +185,19 @@ int main(){
 		
 		sleepx(0.00000001);
 	}
+}
+
+int main(){
+	
+	printf("u are a snek\n");
+	printf("just eat da appl\n");
+	printf("and get longer\n");
+	printf("have fun!\n");
+	getch();
+	
+	while(1){
+		if(run() == 2){system("CLS"); printf("u lose"); getch(); continue;}
+		getch();
+	}
+	
 }
